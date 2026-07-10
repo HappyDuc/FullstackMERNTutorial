@@ -1,6 +1,6 @@
 # Full Stack Blog App
 
-Following [this]([https://](https://youtu.be/Pfy3q6PbbRA?si=xMOWSKLYKCYZ_hEJ&t=10343)) tutorial
+Following [this]([https://](https://youtu.be/Pfy3q6PbbRA?si=l-1_xNcekIdCUAL7&t=11142)) tutorial
 
 Startup commands:
 ```
@@ -10,9 +10,11 @@ npm run dev
 ```
 cd backend
 node --env-file .env --watch index.js
+ngrok http http://localhost:3000
 ```
 
 Built using:
 - Clerk
 - ImageKit
 - MongoDB
+- Ngrok
