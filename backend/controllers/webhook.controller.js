@@ -29,5 +29,19 @@ export const clerkWebHook = async (req, res) => {
             email: evt.data.email_addresses[0].email_address,
             img: evt.data.profile_img_url,
         });
+
+        await newUser.save();
     }
+    if (evt.type === "user.deleted") {
+        const deletedUser = await User.findOneAndDelete({
+            clerkUserId: evt.data.id,
+        });
+
+        await Post.deleteMany({ user: deletedUser._id });
+        await Comment.deleteMany({ user: deletedUser._id });
+    }
+
+    return res.status(200).json({
+        message: "Webhook received",
+    });
 };
