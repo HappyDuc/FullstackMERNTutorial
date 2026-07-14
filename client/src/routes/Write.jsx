@@ -6,10 +6,13 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import Upload from "../components/Upload";
 
 const Write = () => {
     const { isLoaded, isSignedIn } = useUser();
     const [value, setValue] = useState("");
+    const [cover, setCover] = useState("");
+    const [progress, setProgress] = useState(0);
 
     const navigate = useNavigate();
 
@@ -44,9 +47,16 @@ const Write = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (progress !== 100) {
+        toast.error("Please upload the cover image first");
+        return;
+    }
+
         const formData = new FormData(e.target);
 
         const data = {
+            img: cover.filePath || "",
             title: formData.get("title"),
             category: formData.get("category"),
             desc: formData.get("desc"),
@@ -64,9 +74,15 @@ const Write = () => {
                 onSubmit={handleSubmit}
                 className="flex flex-col gap-6 flex-1 mb-6"
             >
-                <button className="w-max p-2 shadow-md rounded-xl text-sm text-gray-500 bg-white">
-                    Add a cover image
-                </button>
+                <Upload
+                    type="image"
+                    setProgress={setProgress}
+                    setData={setCover}
+                >
+                    <button className="w-max p-2 shadow-md rounded-xl text-sm text-gray-500 bg-white">
+                        Add a cover image
+                    </button>
+                </Upload>
                 <input
                     className="text-4xl font-semibold bg-transparent outline-none"
                     type="text"
@@ -91,19 +107,28 @@ const Write = () => {
                     className="p-4 rounded-xl bg-white shadow-md"
                     name="desc"
                     placeholder="A Short Description"
-                ></textarea>
-                <ReactQuill
-                    theme="snow"
-                    className="flex-1 rounded-xl bg-white shadow-md"
-                    value={value}
-                    onChange={setValue}
                 />
+                <div className="flex">
+                    <div className="flex flex-col gap-2 mr-2">
+                        <div className="cursor-pointer">📷</div>
+                        <div className="cursor-pointer">🎥</div>
+                    </div>
+                    <ReactQuill
+                        theme="snow"
+                        className="flex-1 rounded-xl bg-white shadow-md"
+                        value={value}
+                        onChange={setValue}
+                    />
+                </div>
                 <button
-                    disabled={mutation.isPending}
+                    disabled={
+                        mutation.isPending || (0 < progress && progress < 100)
+                    }
                     className="bg-blue-800 text-white font-medium rounded-xl mt-4 p-2 w-36 disabled:bg-blue-400 disabled:cursor-not-allowed"
                 >
                     {mutation.isPending ? "Loading..." : "Send"}
                 </button>
+                {"Progress:" + progress + "%"}
                 {mutation.isError && <span>{mutation.error.message}</span>}
             </form>
         </div>
