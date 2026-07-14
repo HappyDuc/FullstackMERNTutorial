@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 const Write = () => {
     const { isLoaded, isSignedIn } = useUser();
@@ -28,6 +29,7 @@ const Write = () => {
             );
         },
         onSuccess: (res) => {
+            toast.success("Post has been created.");
             navigate(`/${res.data.slug}`);
         },
     });
