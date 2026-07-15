@@ -3,7 +3,7 @@ import "react-quill-new/dist/quill.snow.css";
 import ReactQuill from "react-quill-new";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import Upload from "../components/Upload";
@@ -12,7 +12,21 @@ const Write = () => {
     const { isLoaded, isSignedIn } = useUser();
     const [value, setValue] = useState("");
     const [cover, setCover] = useState("");
+    const [img, setImg] = useState("");
+    const [video, setVideo] = useState("");
     const [progress, setProgress] = useState(0);
+
+    useEffect(() => {
+        img && setValue((prev) => prev + `<p><image src="${img.url}"/></p`);
+    }, [img]);
+
+    useEffect(() => {
+        video &&
+            setValue(
+                (prev) =>
+                    prev + `<p><iframe class=ql-video src="${video.url}"/></p`,
+            );
+    }, [video]);
 
     const navigate = useNavigate();
 
@@ -49,9 +63,9 @@ const Write = () => {
         e.preventDefault();
 
         if (progress !== 100) {
-        toast.error("Please upload the cover image first");
-        return;
-    }
+            toast.error("Please upload the cover image first");
+            return;
+        }
 
         const formData = new FormData(e.target);
 
@@ -108,16 +122,29 @@ const Write = () => {
                     name="desc"
                     placeholder="A Short Description"
                 />
-                <div className="flex">
+                <div className="flex flex-1">
                     <div className="flex flex-col gap-2 mr-2">
-                        <div className="cursor-pointer">📷</div>
-                        <div className="cursor-pointer">🎥</div>
+                        <Upload
+                            type="image"
+                            setProgress={setProgress}
+                            setData={setImg}
+                        >
+                            🌆
+                        </Upload>
+                        <Upload
+                            type="video"
+                            setProgress={setProgress}
+                            setData={setVideo}
+                        >
+                            ▶️
+                        </Upload>
                     </div>
                     <ReactQuill
                         theme="snow"
                         className="flex-1 rounded-xl bg-white shadow-md"
                         value={value}
                         onChange={setValue}
+                        readOnly={0 < progress && progress < 100}
                     />
                 </div>
                 <button

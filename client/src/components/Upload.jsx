@@ -64,7 +64,7 @@ const Upload = ({ children, type, setProgress, setData}) => {
                 abortSignal: abortController.signal,
             });
             console.log("Upload response:", uploadResponse);
-            setData(uploadResponse.url);
+            setData(uploadResponse);
         } catch (error) {
             if (error instanceof ImageKitAbortError) {
                 console.error("Upload aborted:", error.reason);
