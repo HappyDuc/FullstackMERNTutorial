@@ -63,7 +63,6 @@ const Upload = ({ children, type, setProgress, setData }) => {
                 },
             });
 
-            console.log(result);
             setData(result);
         } catch (error) {
             console.error(error);
