@@ -97,7 +97,7 @@ const SinglePostPage = () => {
                             </Link>
                         </div>
                     </div>
-                    <PostMenuActions />
+                    <PostMenuActions post={data} />
                     <h1 className="mt-8 mb-4 text-sm font-medium">
                         Categories
                     </h1>
@@ -124,7 +124,7 @@ const SinglePostPage = () => {
                     </div>
                 </div>
             </div>
-            <Comments postId={data._id}/>
+            <Comments postId={data._id} />
         </div>
     );
 };
