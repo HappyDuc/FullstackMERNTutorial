@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const Comment = ({ comment }) => {
+const Comment = ({ comment, postId }) => {
     const { user } = useUser();
     const { getToken } = useAuth();
     const role = user?.publicMetadata.role;
@@ -29,6 +29,7 @@ const Comment = ({ comment }) => {
             toast.success("Comment deleted successfully");
         },
         onError: (error) => {
+            console.log(error)
             toast.error(error.response.data);
         },
     });
