@@ -1,7 +1,10 @@
 import { format } from "timeago.js";
 import DisplayImage from "./DisplayImage";
+import { useAuth, useUser } from "@clerk/react";
 
 const Comment = ({ comment }) => {
+    const { user } = useUser();
+    const { getToken } = useAuth();
     return (
         <div className="p-4 bg-slate-50 rounded-xl">
             <div className="flex items-center gap-4">
@@ -14,6 +17,7 @@ const Comment = ({ comment }) => {
                 )}
                 <span className="text-medium">{comment.user.username}</span>
                 <span className="text-sm text-gray-500">{format(comment.createdAt)}</span>
+                {/* {user && } */}
             </div>
             <div className="mt-4">
                 <p>
