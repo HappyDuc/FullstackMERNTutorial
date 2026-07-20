@@ -50,8 +50,8 @@ export const deleteComment = async (req, res) => {
         _id: id,
         user: user._id,
     });
-    console.log("ID: " + id);
-    console.log("User: " + user._id);
+    // console.log("ID: " + id);
+    // console.log("User: " + user._id);
 
     if (!deletedComment) {
         return res.status(403).json("You can only delete your own comments.");

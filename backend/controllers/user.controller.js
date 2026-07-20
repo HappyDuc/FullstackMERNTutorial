@@ -8,10 +8,10 @@ export const getUserSavedPosts = async (req, res) => {
         return res.status(401).json("Not authenticated!");
     }
 
-    console.log(clerkUserId)
+    // console.log(clerkUserId)
     const user = await User.findOne({ clerkUserId });
 
-    console.log(user)
+    // console.log(user)
     res.status(200).json(user.savedPosts);
 };
 
