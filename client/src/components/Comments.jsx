@@ -11,7 +11,7 @@ const fetchComments = async (postId) => {
     return res.data;
 };
 
-const Comments = ({ postId }) => {
+const Comments = ({ comment, postId }) => {
     const { user } = useUser();
     const { getToken } = useAuth();
 
@@ -94,7 +94,7 @@ const Comments = ({ postId }) => {
                         <Comment
                             key={comment._id}
                             comment={comment}
-                            postId={postId}
+                            postId={data._id}
                         />
                     ))}
                 </>
