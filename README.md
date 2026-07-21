@@ -1,6 +1,6 @@
 # Full Stack Blog App
 
-Following [this]([https://](https://youtu.be/Pfy3q6PbbRA?si=jvsvvddmp7R4JE-B&t=19058)) tutorial
+Following [this]([https://](https://youtu.be/Pfy3q6PbbRA?si=37zJlGS-BmVxheMI&t=21423)) tutorial
 
 Startup commands:
 ```
