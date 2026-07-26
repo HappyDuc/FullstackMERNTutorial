@@ -16,8 +16,8 @@ const Write = () => {
     const [video, setVideo] = useState("");
     const [progress, setProgress] = useState(0);
 
-    const [title, setTitle] = useState("");
-    const [desc, setDesc] = useState("");
+    // const [title, setTitle] = useState("");
+    // const [desc, setDesc] = useState("");
 
     useEffect(() => {
         img && setValue((prev) => prev + `<p><image src="${img.url}"/></p`);
@@ -71,14 +71,14 @@ const Write = () => {
             );
             return;
         }
-        if (title === "") {
-            toast.warning("Please add a title to your post.");
-            return;
-        }
-        if (desc === "") {
-            toast.warning("Please add a description to your post.");
-            return;
-        }
+        // if (title === "") {
+        //     toast.warning("Please add a title to your post.");
+        //     return;
+        // }
+        // if (desc === "") {
+        //     toast.warning("Please add a description to your post.");
+        //     return;
+        // }
 
         const formData = new FormData(e.target);
 
@@ -110,13 +110,14 @@ const Write = () => {
                         Add a cover image
                     </button>
                 </Upload>
+                {"Progress:" + progress + "%"}
                 <input
                     className="p-4 text-4xl font-semibold bg-white outline-none rounded-xl shadow-md"
                     type="text"
                     placeholder="Enter post title here..."
                     name="title"
-                    value={title}
-                    onChange={setTitle}
+                    // value={title}
+                    // onChange={setTitle}
                 />
                 <div className="flex items-center gap-4">
                     <label className="text-sm">Choose a category:</label>
@@ -136,8 +137,8 @@ const Write = () => {
                     className="p-4 rounded-xl bg-white shadow-md"
                     name="desc"
                     placeholder="A Short Description"
-                    value={desc}
-                    onChange={setDesc}
+                    // value={desc}
+                    // onChange={setDesc}
                 />
                 <div className="flex flex-1">
                     <div className="flex flex-col gap-2 mr-2">
@@ -172,8 +173,13 @@ const Write = () => {
                 >
                     {mutation.isPending ? "Loading..." : "Send"}
                 </button>
-                {"Progress:" + progress + "%"}
-                {mutation.isError && <span>{mutation.error.message}. If you are seeing this, check you have enterred a title, description AND body text as well as adding a cover image and try again.</span>}
+                {mutation.isError && (
+                    <span>
+                        {mutation.error.message}. If you are seeing this, check
+                        you have entered a title, description AND body text as
+                        well as adding a cover image and try again.
+                    </span>
+                )}
             </form>
         </div>
     );
