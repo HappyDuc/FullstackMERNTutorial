@@ -31,8 +31,9 @@ const SinglePostPage = () => {
 
     return (
         <div className="flex flex-col gap-8">
-            {/* detail */}
+            {/* Post (without comments) */}
             <div className="flex gap-8">
+                {/* Post Title and Content */}
                 <div className="lg:w-3/5 flex flex-col gap-8">
                     <h1 className="text-xl md:text-3xl xl:text-4xl 2xl:text-5xl font-semibold">
                         {data.title}
@@ -47,7 +48,20 @@ const SinglePostPage = () => {
                         <span>{format(data.createdAt)}</span>
                     </div>
                     <p className="text-gray-500 font-medium">{data.desc}</p>
+
+                    {/* Post content text */}
+                    <div className="flex flex-col md:flex-row gap-12 justify-between">
+                        {/* text */}
+                        <div className="lg:text-lg flex flex-col gap-6 text-justify">
+                            <ReactQuill
+                                value={data.content}
+                                readOnly={true}
+                                theme={"bubble"}
+                            />
+                        </div>
+                    </div>
                 </div>
+                {/* Cover image */}
                 {data.img && (
                     <div className="hidden lg:block w-2/5">
                         <DisplayImage
@@ -57,17 +71,6 @@ const SinglePostPage = () => {
                         />
                     </div>
                 )}
-            </div>
-            {/* content */}
-            <div className="flex flex-col md:flex-row gap-12 justify-between">
-                {/* text */}
-                <div className="lg:text-lg flex flex-col gap-6 text-justify">
-                    <ReactQuill
-                        value={data.content}
-                        readOnly={true}
-                        theme={"bubble"}
-                    />
-                </div>
                 {/* menu */}
                 <div className="px-4 h-max sticky top-8">
                     <h1 className="mb-4 text-sm font-medium">Author</h1>
